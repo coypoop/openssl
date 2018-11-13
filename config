@@ -392,14 +392,10 @@ GCCVER=${GCCVER:-0}
 if [ "$SYSTEM" = "HP-UX" ];then
   # By default gcc is a ILP32 compiler (with long long == 64).
   GCC_BITS="32"
-  if [ $GCCVER -ge 30 ]; then
-    # PA64 support only came in with gcc 3.0.x.
-    # We check if the preprocessor symbol __LP64__ is defined...
-    if echo "__LP64__" | gcc -v -E -x c - 2>/dev/null | grep "^__LP64__" 2>&1 > /dev/null; then
-      : # __LP64__ has slipped through, it therefore is not defined
-    else
-      GCC_BITS="64"
-    fi
+  if echo "__LP64__" | gcc -v -E -x c - 2>/dev/null | grep "^__LP64__" 2>&1 > /dev/null; then
+    : # __LP64__ has slipped through, it therefore is not defined
+  else
+    GCC_BITS="64"
   fi
 fi
 if [ "$SYSTEM" = "SunOS" ]; then
