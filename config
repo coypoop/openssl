@@ -403,14 +403,10 @@ if [ "$SYSTEM" = "HP-UX" ];then
   fi
 fi
 if [ "$SYSTEM" = "SunOS" ]; then
-  if [ $GCCVER -ge 30 ]; then
-    # 64-bit ABI isn't officially supported in gcc 3.0, but it appears
-    # to be working, at the very least 'make test' passes...
-    if gcc -v -E -x c /dev/null 2>&1 | grep __arch64__ > /dev/null; then
-      GCC_ARCH="-m64"
-    else
-      GCC_ARCH="-m32"
-    fi
+  if gcc -v -E -x c /dev/null 2>&1 | grep __arch64__ > /dev/null; then
+    GCC_ARCH="-m64"
+  else
+    GCC_ARCH="-m32"
   fi
   # check for WorkShop C, expected output is "cc: blah-blah C x.x"
   CCVER=`(cc -V 2>&1) 2>/dev/null | \
