@@ -415,11 +415,6 @@ if [ "$SYSTEM" = "SunOS" ]; then
   CCVER=${CCVER:-0}
   if [ $MACHINE != i86pc -a $CCVER -gt 40 ]; then
     CC=cc	# overrides gcc!!!
-    if [ $CCVER -eq 50 ]; then
-      echo "WARNING! Detected WorkShop C 5.0. Do make sure you have"
-      echo "         patch #107357-01 or later applied."
-      sleep 5
-    fi
   fi
 fi
 
